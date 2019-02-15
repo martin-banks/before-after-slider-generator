@@ -1,21 +1,26 @@
 import React, { Component } from 'react'
 import './App.css'
+import './BeerSlider.css'
+
+import BeerSlider from 'beerslider'
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      before: false,
-      after: false,
+      before: 'https://placekitten.com/600/300',
+      after: 'https://placekitten.com/g/600/300',
       start: 50,
       embed: '',
-      showEmbed: true,
+      showEmbed: false,
     }
     this.embedCode = this.embedCode.bind(this)
     this.handleUpdateBefore = this.handleUpdateBefore.bind(this)
     this.handleUpdateAfter = this.handleUpdateAfter.bind(this)
     this.toggleEmbedCode = this.toggleEmbedCode.bind(this)
     this.handleStartChange = this.handleStartChange.bind(this)
+
+    this.previewRef = React.createRef()
   }
 
   handleUpdateBefore (e) {
@@ -59,6 +64,13 @@ class App extends Component {
     `
     this.setState({ embed: template })
   }
+
+  componentDidMount () {
+    new BeerSlider(
+      this.previewRef.current,
+      { start: this.state.start })
+  }
+
   render() {
     return (
       <div className="App">
@@ -103,7 +115,24 @@ class App extends Component {
               : ''
           }
 
-          <div id="preview"></div>
+          <div id="preview">
+          <div>
+                <div id="slider-container">
+                  <div
+                    id="slider"
+                    className="beer-slider"
+                    data-beer-label="before"
+                    ref={ this.previewRef }
+                  >
+                    <img src={ this.state.before } alt="" />
+                    <div className="beer-reveal" data-beer-label="after">
+                      <img src={ this.state.after } alt="" />
+                    </div>
+                  </div>
+                </div>
+              
+            </div>
+          </div>
         </div>
 
 
@@ -162,6 +191,7 @@ class App extends Component {
             background: #333;
             color: #bada55;
             padding: 20px;
+            overflow: auto;
           }
           
         `}</style>
