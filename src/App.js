@@ -161,7 +161,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div class="background" />
+        <div className="background" />
 
         <div className="title">
           <h1>Before / after slider maker</h1>
@@ -186,7 +186,8 @@ class App extends Component {
                 cols="100"
                 rows="5"
                 onChange={ this.handleUpdateIntro }
-              >{ this.state.intro }</textarea>
+                value={ this.state.intro }
+              />
 
               <hr />
 
