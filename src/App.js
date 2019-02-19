@@ -28,6 +28,9 @@ class App extends Component {
     this.toggleEmbedCode = this.toggleEmbedCode.bind(this)
     this.handleStartChange = this.handleStartChange.bind(this)
 
+    this.handleUpdateTitle = this.handleUpdateTitle.bind(this)
+    this.handleUpdateIntro = this.handleUpdateIntro.bind(this)
+
     this.previewRef = React.createRef()
   }
 
@@ -57,10 +60,14 @@ class App extends Component {
   }
 
   handleUpdateTitle (e) {
-
+    this.setState({
+      title: e.target.value
+    })
   }
   handleUpdateIntro (e) {
-    
+    this.setState({
+      intro: e.target.value
+    })
   }
 
   jsEmbed () {
@@ -163,7 +170,7 @@ class App extends Component {
                 name="title"
                 type="text"
                 value={ this.state.title }
-                onChange={ this.handleTitleChange }
+                onChange={ this.handleUpdateTitle }
               />
 
               <label htmlFor="intro">Slider intro</label>
@@ -172,7 +179,7 @@ class App extends Component {
                 id=""
                 cols="100"
                 rows="5"
-                onChange={ this.handleIntroChange }
+                onChange={ this.handleUpdateIntro }
               >{ this.state.intro }</textarea>
 
               <hr />
@@ -232,11 +239,11 @@ class App extends Component {
             </button> */}
 
           </div>
-          <div class="content">
+          <div className="content">
             <div id="preview">
               <div>
                 <div id="slider-container">
-                  <div class="header">
+                  <div className="header">
                     <h3>{ this.state.title }</h3>
                     <p>{ this.state.intro }</p>
                   </div>
