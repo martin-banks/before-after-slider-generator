@@ -13,8 +13,8 @@ class App extends Component {
       start: 50,
       embed: '',
       showEmbed: true,
-      labelRight: 'Right label',
-      labelLeft: 'Left label',
+      labelRight: 'Right',
+      labelLeft: 'Left',
       title: 'Before / after title',
       intro: 'Before / after introduction, Aliqua ipsum ipsum et sint elit labore nisi irure cillum.'
     }
@@ -165,6 +165,7 @@ class App extends Component {
 
         <div className="title">
           <h1>Before / after slider maker</h1>
+          <p>Be sure you have optimised and compressed your images correctly.</p>
         </div>
 
         <div className="editor">
@@ -287,6 +288,7 @@ class App extends Component {
           * {
             text-align: left;
             box-sizing: border-box;
+            color: #333;
           }
 
           .App {
@@ -310,7 +312,7 @@ class App extends Component {
           }
 
           .title {
-            
+            margin-bottom: 100px
           }
 
           .content {
@@ -325,7 +327,6 @@ class App extends Component {
 
           h1 {
             margin: 0;
-            margin-bottom: 100px
           }
           h2 {
             margin: 0;
@@ -348,6 +349,8 @@ class App extends Component {
           label {
             display: block;
             margin-bottom: 4px;
+            font-weight: 600;
+            color: #888;
           }
 
           input, textarea {
@@ -356,8 +359,15 @@ class App extends Component {
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            border: solid 1px #c2c2c2;
-            border-radius: 4px;
+            outline: none;
+            border: solid 2px rgba(0,0,0, 0.1);
+            border-radius: 8px;
+          }
+
+          input:focus,
+          textarea:focus {
+            outline: none;
+            border: solid 2px orange;
           }
 
           textarea {
