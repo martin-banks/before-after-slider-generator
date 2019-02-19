@@ -63,11 +63,13 @@ class App extends Component {
     this.setState({
       title: e.target.value
     })
+    this.embedCode()
   }
   handleUpdateIntro (e) {
     this.setState({
       intro: e.target.value
     })
+    this.embedCode()
   }
 
   jsEmbed () {
@@ -121,10 +123,14 @@ class App extends Component {
 `<div>
   <link href="https://unpkg.com/beerslider/dist/BeerSlider.css" rel="stylesheet"/>
     <div id="slider-container">
-      <div class="header">
-        <h3>${this.state.title}</h3>
-        <p>${ this.state.intro }</p>
-      </div>
+      ${
+        (this.state.title || this.state.intro)
+          && `<div class="header">
+              ${this.state.title && `<h3>${this.state.title}</h3>`}
+              ${this.state.intro && `<p>${ this.state.intro }</p>`}
+            </div>`
+      }
+      
       <div id="slider" class="beer-slider" data-beer-label="${this.state.labelRight}">
         <img src="${this.state.before}" alt="">
         <div class="beer-reveal" data-beer-label="${this.state.labelLeft}">
