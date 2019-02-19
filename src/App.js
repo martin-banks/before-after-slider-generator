@@ -14,7 +14,7 @@ class App extends Component {
       embed: '',
       showEmbed: true,
       labelRight: 'Right label',
-      labelAfter: 'Left label',
+      labelLeft: 'Left label',
       title: 'Before / after title',
       intro: 'Before / after introduction, Aliqua ipsum ipsum et sint elit labore nisi irure cillum.'
     }
@@ -52,7 +52,7 @@ class App extends Component {
     this.embedCode()
   }
   handleUpdateLeftLabel (e) {
-    this.setState({ labelAfter: e.target.value })
+    this.setState({ labelLeft: e.target.value })
     this.embedCode()
   }
 
@@ -63,26 +63,75 @@ class App extends Component {
     
   }
 
+  jsEmbed () {
+    const content = {
+      header: {
+        title: this.state.title,
+        intro: this.state.intro,
+      },
+      left: {
+        image: this.state.left,
+        label: this.state.labelLeft,
+        alt: '',
+      },
+      right: {
+        image: this.state.right,
+        label: this.state.labelRight,
+        alt: '',
+      },
+      start: this.state.start
+    }
 
-  embedCode () {
-    const template = 
+
+
+    const template =
 `<div>
-  <link url="https://where-the-styles-live" rel="stylesheet" />
+  <link href="https://unpkg.com/beerslider/dist/BeerSlider.css" rel="stylesheet" />
     <div id="slider-container">
+      <div class="header">
+        <h3>${this.state.title}</h3>
+        <p>${ this.state.intro }</p>
+      </div>
       <div id="slider" class="beer-slider" data-beer-label="${this.state.labelRight}">
-        <img src="${this.state.before} alt="">
-        <div class="beer-reveal" data-beer-label="${this.state.labelAfter}">
+        <img src="${this.state.before}" alt="">
+        <div class="beer-reveal" data-beer-label="${this.state.labelLeft}">
           <img src="${this.state.after}" alt="">
         </div>
       </div>
     </div>
-  <script src="https://where-the-scripts-are" type="text/javascript"></script>
+  <script src="https://unpkg.com/beerslider/dist/BeerSlider.js" type="text/javascript"></script>
   <script type="text/javascript">
     new BeerSlider(
-      document.querySelector('#slider-container'),
+      document.querySelector('#slider'),
       { start: ${this.state.start} })
   </script>
 </div>`
+  }
+
+
+  embedCode () {
+    const template =
+`<div>
+  <link href="https://unpkg.com/beerslider/dist/BeerSlider.css" rel="stylesheet"/>
+    <div id="slider-container">
+      <div class="header">
+        <h3>${this.state.title}</h3>
+        <p>${ this.state.intro }</p>
+      </div>
+      <div id="slider" class="beer-slider" data-beer-label="${this.state.labelRight}">
+        <img src="${this.state.before}" alt="">
+        <div class="beer-reveal" data-beer-label="${this.state.labelLeft}">
+          <img src="${this.state.after}" alt="">
+        </div>
+      </div>
+    </div>
+  <script src="https://unpkg.com/beerslider/dist/BeerSlider.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    new BeerSlider(
+      document.querySelector('#slider'),
+      { start: ${this.state.start} })
+  </script>
+</div>`.replace(/\>\s+\</gi, '><')
 
     this.setState({ embed: template })
   }
@@ -128,13 +177,13 @@ class App extends Component {
 
               <hr />
 
-              <label htmlFor="labelAfter">Left side image label</label>
+              <label htmlFor="labelLeft">Left side image label</label>
               <input
-                id="labelAfter"
-                name="labelAfter"
+                id="labelLeft"
+                name="labelLeft"
                 type="text"
                 onChange={ this.handleUpdateLeftLabel }
-                value={ this.state.labelAfter }
+                value={ this.state.labelLeft }
               />
 
               <label htmlFor="afterImage">URL of left image</label>
@@ -200,8 +249,8 @@ class App extends Component {
                     <img src={ this.state.before } alt="" />
                     <div
                       className="beer-reveal"
-                      data-beer-label={ this.state.labelAfter }
-                      >
+                      data-beer-label={ this.state.labelLeft }
+                    >
                       <img src={ this.state.after } alt="" />
                     </div>
                   </div>
@@ -253,7 +302,7 @@ class App extends Component {
           .content {
             {/* outline: solid 1px red; */}
             width: 50%;
-            max-width: 1100px;
+            max-width: 50vw;
             margin: 0 10px 100px 10px;
             background: white;
             padding: 30px;
